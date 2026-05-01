@@ -27,25 +27,29 @@ devtools::install_github("mauroflorez/VEL.BMGM")
 library(VEL.BMGM)
 set.seed(1)
 
-n <- 200
+n <- 300
 X <- matrix(rnorm(n * 4), n, 4)         # 4 continuous predictors
-Z <- matrix(runif(n * 2, -1, 1), n, 2)  # 2 continuous covariates
+Z <- matrix(runif(n, -1, 1), n, 1)      # 1 continuous covariate
 
-# Binary response: only X[, 1] is a true predictor, with a non-linear
-# coefficient driven by Z[, 1]
-eta <- X[, 1] * (2 * Z[, 1]^2 - 0.5)
+# Only X[, 1] is a true predictor; its effect is a nonlinear function of Z[, 1]
+eta <- X[, 1] * (1 + 2 * Z[, 1]^2)
 Y   <- rbinom(n, 1, plogis(eta))
 
 fit <- bmgm_GP(X, Y, Z, type = rep("c", 4),
-               nburn = 1000, nsample = 1000, seed = 1)
+               nburn = 2000, nsample = 2000, seed = 1,
+               kernel = "exp")
 
-# Posterior inclusion probabilities for each predictor (post-burn-in)
-colMeans(fit$post_gamma[-(1:1000), ])
+# Posterior inclusion probabilities (true predictor X[, 1] should be near 1)
+colMeans(fit$post_gamma[-(1:2000), ])
+
+# Visualize the estimated varying coefficient beta_1(Z)
+plot(fit)
 ```
 
-The Gaussian Process kernel can be selected via the `kernel` argument
-(`"sqexp"`, the default, or `"exp"` for rougher sample paths that better
-capture sharp non-monotone effects).
+The Gaussian Process kernel can be selected via the `kernel` argument:
+`"sqexp"` (the default) gives smoother sample paths, while `"exp"` is
+better suited to capturing sharp non-monotone effects (as in the example
+above).
 
 ## Notes for users upgrading from 0.1.0
 
