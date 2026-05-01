@@ -14,18 +14,30 @@ This R package implements Bayesian varying-effects logistic regression for binar
 
 ## Installation
 
-Clone/download this repository, then install with:
+`VEL.BMGM` depends on the `BMGM` package, which must be installed first:
 
 ``` r
-devtools::install_github("mauroflorez/VEL.BMGM")
+devtools::install_github("mauroflorez/BMGM")
+devtools::install_github("mauroflorez/VEL-BMGM")
 ```
 
 ## Basic Usage
 
 ``` r
-library(VEL.BMGM) 
-fit <- bmgm_gp(X, Y, Z, type_y = 'b_new', type = type_vector)
+library(VEL.BMGM)
+fit <- bmgm_GP(X, Y, Z, type_y = 'b_new', type = type_vector)
 ```
+
+The Gaussian Process kernel can be selected via the `kernel` argument
+(`"sqexp"`, the default, or `"exp"` for rougher sample paths that better
+capture sharp non-monotone effects).
+
+## Notes for users upgrading from 0.1.0
+
+The squared-exponential kernel formula was changed to the standard form
+(with the 1/2 factor in the exponent). At the same nominal `lengthscale`,
+the new version produces smoother varying-coefficient curves than the old
+one. If you previously tuned `lengthscale`, expect to re-tune.
 
 ## Authors
 
