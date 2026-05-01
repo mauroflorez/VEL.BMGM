@@ -18,14 +18,29 @@ This R package implements Bayesian varying-effects logistic regression for binar
 
 ``` r
 devtools::install_github("mauroflorez/BMGM")
-devtools::install_github("mauroflorez/VEL-BMGM")
+devtools::install_github("mauroflorez/VEL.BMGM")
 ```
 
 ## Basic Usage
 
 ``` r
 library(VEL.BMGM)
-fit <- bmgm_GP(X, Y, Z, type_y = 'b_new', type = type_vector)
+set.seed(1)
+
+n <- 200
+X <- matrix(rnorm(n * 4), n, 4)         # 4 continuous predictors
+Z <- matrix(runif(n * 2, -1, 1), n, 2)  # 2 continuous covariates
+
+# Binary response: only X[, 1] is a true predictor, with a non-linear
+# coefficient driven by Z[, 1]
+eta <- X[, 1] * (2 * Z[, 1]^2 - 0.5)
+Y   <- rbinom(n, 1, plogis(eta))
+
+fit <- bmgm_GP(X, Y, Z, type = rep("c", 4),
+               nburn = 1000, nsample = 1000, seed = 1)
+
+# Posterior inclusion probabilities for each predictor (post-burn-in)
+colMeans(fit$post_gamma[-(1:1000), ])
 ```
 
 The Gaussian Process kernel can be selected via the `kernel` argument
