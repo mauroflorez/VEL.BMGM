@@ -4,7 +4,7 @@
 \alias{kernel_se}
 \title{Squared Exponential Kernel}
 \usage{
-kernel_se(Z, lengthscale = 0.5, sigma_f = 1)
+kernel_se(Z, lengthscale = 0.5, sigma_f = 1, kernel = "sqexp")
 }
 \arguments{
 \item{Z}{Covariate vector.}
@@ -12,10 +12,12 @@ kernel_se(Z, lengthscale = 0.5, sigma_f = 1)
 \item{lengthscale}{Lengthscale parameter (default: 0.5).}
 
 \item{sigma_f}{Output scale parameter (default: 1).}
+
+\item{kernel}{Character; kernel type. "sqexp" for squared exponential (default), "exp" for exponential.}
 }
 \value{
 Kernel matrix.
 }
 \description{
-Computes the squared exponential kernel matrix for a given covariate vector.
+Computes the squared exponential (RBF) kernel matrix for a given covariate vector.
 }

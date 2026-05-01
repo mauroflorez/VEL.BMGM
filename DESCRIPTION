@@ -1,13 +1,31 @@
 Package: VEL.BMGM
 Type: Package
 Title: Bayesian Varying-Effects Logistic Regression with Mixed Graphical Structure
-Version: 0.1.0
+Version: 0.2.0
 Author: Mauro Florez
 Maintainer: Mauro Florez <mauroederfr@gmail.com>
-Description: Implements Bayesian varying-effects logistic regression for binary outcomes with mixed-type predictors (continuous, discrete, zero-inflated, and categorical). Predictor effects are modeled as functions of external covariates using Gaussian Process priors. The package jointly estimates a sparse conditional independence graph among predictors via a Bayesian mixed graphical model (BMGM), leveraging spike-and-slab priors for variable and covariate selection. Posterior inference uses efficient MCMC with Polya-Gamma augmentation.
+Description: Implements Bayesian varying-effects logistic regression for binary
+    outcomes with mixed-type predictors (continuous, discrete, zero-inflated, and
+    categorical). Predictor effects are modeled as functions of external covariates
+    using Gaussian Process priors. The package jointly estimates a sparse conditional
+    independence graph among predictors via a Bayesian mixed graphical model (BMGM),
+    leveraging spike-and-slab priors for variable and covariate selection. Posterior
+    inference uses efficient MCMC with Polya-Gamma augmentation.
 Depends: R (>= 3.6.0)
-Imports: mvnfast, MASS, mnormt, BayesLogit, gtools, LaplacesDemon, proxy, scales, mvtnorm, armspp
+Imports:
+    BMGM (>= 0.1.1),
+    mvnfast,
+    MASS,
+    mnormt,
+    BayesLogit,
+    gtools,
+    scales,
+    mvtnorm
+Suggests:
+    ggplot2,
+    igraph,
+    pROC
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3

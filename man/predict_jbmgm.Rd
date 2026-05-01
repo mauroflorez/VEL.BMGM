@@ -2,39 +2,38 @@
 % Please edit documentation in R/predict_utils.R
 \name{predict_jbmgm}
 \alias{predict_jbmgm}
-\title{Predict with Bayesian Mixed Graphical Model}
+\title{Predict with VEL-BMGM Model}
 \usage{
 predict_jbmgm(
   fit,
-  X_new,
-  test,
-  train,
-  Z,
-  beta_j_est,
-  PPI_Z,
-  mcmc_samples = 1000
+  X_test,
+  Z_test,
+  Z_train = NULL,
+  mcmc_samples = 1000,
+  threshold = 0.5
 )
 }
 \arguments{
-\item{fit}{Model fit object from bmgm_gp().}
+\item{fit}{Model fit object from bmgm_GP().}
 
-\item{X_new}{New predictor matrix (for test data).}
+\item{X_test}{Test predictor matrix (n_test x p).}
 
-\item{test}{Indices of testing data}
+\item{Z_test}{Test covariate matrix (n_test x K).}
 
-\item{train}{Indices of training data}
-
-\item{Z}{Covariate matrix (includes both train and test).}
-
-\item{beta_j_est}{Posterior mean or estimate of beta_j.}
-
-\item{PPI_Z}{Posterior probabilities for kernel components.}
+\item{Z_train}{Training covariate matrix (n_train x K). If NULL, uses fit$Z.}
 
 \item{mcmc_samples}{Number of posterior samples to use (default 1000).}
+
+\item{threshold}{PPI threshold for covariate selection (default 0.5).}
 }
 \value{
-Vector of predicted probabilities (for binary Y).
+A list with:
+  \item{prob_mean}{Vector of mean predicted probabilities (length n_test).}
+  \item{prob_samples}{Matrix (mcmc_samples x n_test) of predicted probabilities per MCMC iteration.}
+  \item{class}{Predicted binary class (threshold at 0.5).}
 }
 \description{
-Generates predictions for new data from a fitted VEL.BMGM model.
+Generates predictions for new test data from a fitted VEL-BMGM model.
+Uses GP conditional prediction to extrapolate varying coefficients
+from training covariate values to test covariate values.
 }

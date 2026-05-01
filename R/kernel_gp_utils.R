@@ -1,16 +1,22 @@
 #' Squared Exponential Kernel
 #'
-#' Computes the squared exponential kernel matrix for a given covariate vector.
+#' Computes the squared exponential (RBF) kernel matrix for a given covariate vector.
 #'
 #' @param Z Covariate vector.
 #' @param lengthscale Lengthscale parameter (default: 0.5).
 #' @param sigma_f Output scale parameter (default: 1).
+#' @param kernel Character; kernel type. "sqexp" for squared exponential (default), "exp" for exponential.
 #'
 #' @return Kernel matrix.
 #' @export
-kernel_se <- function(Z, lengthscale = 0.5, sigma_f = 1) {
-  dists <- as.matrix(dist(Z))^2
-  sigma_f^2 * exp(-dists / lengthscale^2)
+kernel_se <- function(Z, lengthscale = 0.5, sigma_f = 1, kernel = "sqexp") {
+  if (kernel == "sqexp") {
+    dists <- as.matrix(dist(Z))^2
+    sigma_f^2 * exp(-0.5 * dists / lengthscale^2)
+  } else {
+    dists <- as.matrix(dist(Z))
+    sigma_f^2 * exp(-dists / lengthscale^2)
+  }
 }
 
 #' Compute Cj Variance and XCXt Matrix

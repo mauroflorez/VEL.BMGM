@@ -48,7 +48,7 @@ predict_jbmgm <- function(fit, X_test, Z_test, Z_train = NULL,
 
     dists_sq <- outer(Z_test_norm[, k], Z_train_norm[, k],
                       function(a, b) (a - b)^2)
-    Kernels_test_train[,,k] <- sigma_f^2 * exp(-dists_sq / lengthscale^2)
+    Kernels_test_train[,,k] <- sigma_f^2 * exp(-0.5 * dists_sq / lengthscale^2)
   }
 
   # GP conditional prediction: beta_j_star = C(Z*, Z) C(Z, Z)^{-1} beta_j_hat
