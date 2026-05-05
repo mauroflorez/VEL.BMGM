@@ -51,13 +51,6 @@ The Gaussian Process kernel can be selected via the `kernel` argument:
 better suited to capturing sharp non-monotone effects (as in the example
 above).
 
-## Notes for users upgrading from 0.1.0
-
-The squared-exponential kernel formula was changed to the standard form
-(with the 1/2 factor in the exponent). At the same nominal `lengthscale`,
-the new version produces smoother varying-coefficient curves than the old
-one. If you previously tuned `lengthscale`, expect to re-tune.
-
 ## Authors
 
 Mauro Florez
