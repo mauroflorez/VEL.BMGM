@@ -4,6 +4,8 @@ Title: Bayesian Varying-Effects Logistic Regression with Mixed Graphical Structu
 Version: 0.2.0
 Author: Mauro Florez
 Maintainer: Mauro Florez <mauroederfr@gmail.com>
+URL: https://mauroflorez.github.io/VEL.BMGM, https://github.com/mauroflorez/VEL.BMGM
+BugReports: https://github.com/mauroflorez/VEL.BMGM/issues
 Description: Implements Bayesian varying-effects logistic regression for binary
     outcomes with mixed-type predictors (continuous, discrete, zero-inflated, and
     categorical). Predictor effects are modeled as functions of external covariates
