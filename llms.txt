@@ -68,7 +68,7 @@ allow more local variation.
 For a more comprehensive demonstration with multiple varying-coefficient
 shapes (sine, quadratic, linear, sigmoid) recovered simultaneously, see
 the [recovery of varying coefficients
-vignette](https://mauroflorez.github.io/VEL.BMGM/articles/recovery-of-varying-effects.md).
+vignette](https://mauroflorez.github.io/VEL.BMGM/articles/recovery-of-varying-effects.html).
 
 ## Authors
 
