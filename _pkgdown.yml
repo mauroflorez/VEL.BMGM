@@ -1,0 +1,56 @@
+url: https://mauroflorez.github.io/VEL.BMGM/
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: "Main fitting function"
+    contents:
+      - bmgm_GP
+
+  - title: "Prediction"
+    contents:
+      - predict_jbmgm
+
+  - title: "Post-fit summaries"
+    contents:
+      - summary_bmgm
+      - pip_table
+      - coef_summary
+      - edge_table
+      - gp_summary
+
+  - title: "Plots"
+    contents:
+      - plot_varying_coefficients
+      - plot_pip_heatmap
+      - plot_pip_bar
+      - plot_graph
+      - plot_trace
+      - plot_roc
+
+  - title: "Metrics"
+    contents:
+      - classification_metrics
+      - selection_metrics
+      - posterior_predictive_check
+
+  - title: "Internals (kernel and MCMC helpers)"
+    contents:
+      - kernel_se
+      - compute_Cj_var
+      - compute_Sigma_Y
+      - update_beta_j
+      - update_beta_0
+      - update_tau_w
+
+  - title: "S3 methods"
+    contents:
+      - print.vel_bmgm
+      - plot.vel_bmgm
+
+articles:
+  - title: "Tutorials"
+    navbar: ~
+    contents:
+      - recovery-of-varying-effects

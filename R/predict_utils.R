@@ -38,7 +38,7 @@ predict_jbmgm <- function(fit, X_test, Z_test, Z_train = NULL,
   Kernels_train      <- array(0, dim = c(n_train, n_train, K))
   Kernels_test_train <- array(0, dim = c(n_test, n_train, K))
 
-  lengthscale <- 0.5  # matches the fitting function
+  lengthscale <- 0.3  # matches the fitting function default
   sigma_f     <- 1
 
   for (k in 1:K) {

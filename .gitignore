@@ -5,3 +5,5 @@
 .DS_Store
 *.Rproj
 *.tar.gz
+docs/
+pkgdown/

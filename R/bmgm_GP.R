@@ -27,7 +27,7 @@ bmgm_GP <- function(X, Y, Z, type_y = 'b_new', type, nburn = 1000, nsample = 100
                             v_0 = 0.05, v_1 = 1, pi_beta, seed, context_spec = T,
                             bfdr = 0.05, cont = FALSE, a = -2.75, b = 0.5, a_0 = 1, b_0 = 1, a_r = 1, b_r = 100,
                             a_tau_w = 1, b_tau_w = 1, a_tau = 1, b_tau = 1, alpha_jk = 0.5,
-                            lengthscale = 0.5, sigma_kernel, tune = 100, kernel = "sqexp",...){
+                            lengthscale = 0.3, sigma_kernel, tune = 100, kernel = "sqexp",...){
   
   #X: matrix of predictors (n*p)
   #Y: response variable (n*1)

@@ -9,7 +9,7 @@
 #'
 #' @return Kernel matrix.
 #' @export
-kernel_se <- function(Z, lengthscale = 0.5, sigma_f = 1, kernel = "sqexp") {
+kernel_se <- function(Z, lengthscale = 0.3, sigma_f = 1, kernel = "sqexp") {
   if (kernel == "sqexp") {
     dists <- as.matrix(dist(Z))^2
     sigma_f^2 * exp(-0.5 * dists / lengthscale^2)

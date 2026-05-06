@@ -24,7 +24,10 @@ Imports:
 Suggests:
     ggplot2,
     igraph,
-    pROC
+    pROC,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
