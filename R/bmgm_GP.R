@@ -1552,14 +1552,14 @@ bmgm_GP <- function(X, Y, Z, type_y = 'b_new', type, nburn = 1000, nsample = 100
   
   #close(pb)
   
-  #post_Beta <- post_Beta[-(1:nburn),]
-  #post_gamma <- post_gamma[-(1:nburn),]
-  #post_G <- post_G[-(1:nburn),]
-  #post_theta <- lapply(post_theta, function(mat) mat[(nburn + 1):(nburn + nsample), ])
-  
   ######################====== Create Adj. Matrix ======########################
-  #Context-Specifid
-  ce_graph <- BMGM::context_spec_graph(q, post_Beta, post_G, tag, bfdr)
+  # Use only post-burn-in samples for graph estimation. Passing the full chain
+  # dilutes the edge inclusion probabilities and causes the BFDR procedure to
+  # drop high-confidence edges that entered the model later during burn-in.
+  post_idx <- (nburn + 1):(nburn + nsample)
+  ce_graph <- BMGM::context_spec_graph(q, post_Beta[post_idx, , drop = FALSE],
+                                       post_G[post_idx, , drop = FALSE],
+                                       tag, bfdr)
   #General Graph
   cat_graph <- BMGM::categories_graph(q, p, var_names, ce_graph$ce_esti_Z,
                                 ce_graph$ce_esti_Beta, categories)

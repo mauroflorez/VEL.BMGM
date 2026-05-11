@@ -4,8 +4,14 @@
 #' Uses GP conditional prediction to extrapolate varying coefficients
 #' from training covariate values to test covariate values.
 #'
+#' Continuous predictors in \code{X_test} are centered using the training
+#' column means stored in \code{fit$X}, and two-level categorical predictors
+#' (\code{type = "m"}) coded as 1/2 are converted to 0/1 dummies, matching
+#' the preprocessing applied inside \code{bmgm_GP()}.
+#'
 #' @param fit Model fit object from bmgm_GP().
-#' @param X_test Test predictor matrix (n_test x p).
+#' @param X_test Test predictor matrix (n_test x p), supplied on the raw
+#'   (uncentered, 1/2-coded) scale — same form as the X passed to bmgm_GP().
 #' @param Z_test Test covariate matrix (n_test x K).
 #' @param Z_train Training covariate matrix (n_train x K). If NULL, uses fit$Z.
 #' @param mcmc_samples Number of posterior samples to use (default 1000).
@@ -27,6 +33,26 @@ predict_jbmgm <- function(fit, X_test, Z_test, Z_train = NULL,
 
   if (is.null(Z_train)) Z_train <- fit$Z
   n_train <- nrow(Z_train)
+
+  # Apply the same preprocessing bmgm_GP applied to training X:
+  #   - continuous ("c"): centered by training column means
+  #   - categorical ("m", 2-level): convert 1/2 coding to 0/1 dummy (cat 1 = reference)
+  # Without this, beta_j (learned on centered/dummy scale) is multiplied by
+  # raw values and the linear predictor blows up.
+  if (!is.null(fit$type) && !is.null(fit$X)) {
+    type_fit  <- fit$type
+    means_fit <- colMeans(fit$X, na.rm = TRUE)
+    if (any(type_fit == "c")) {
+      X_test[, type_fit == "c"] <- scale(
+        X_test[, type_fit == "c", drop = FALSE],
+        center = means_fit[type_fit == "c"],
+        scale  = FALSE
+      )
+    }
+    for (j in which(type_fit == "m")) {
+      X_test[, j] <- as.numeric(X_test[, j] == 2)
+    }
+  }
 
   # Normalize covariates to [0,1] using TRAINING range
   Z_all   <- rbind(Z_train, Z_test)

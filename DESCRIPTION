@@ -1,7 +1,7 @@
 Package: VEL.BMGM
 Type: Package
 Title: Bayesian Varying-Effects Logistic Regression with Mixed Graphical Structure
-Version: 0.2.0
+Version: 0.2.1
 Author: Mauro Florez
 Maintainer: Mauro Florez <mauroederfr@gmail.com>
 URL: https://mauroflorez.github.io/VEL.BMGM, https://github.com/mauroflorez/VEL.BMGM
