@@ -22,11 +22,11 @@ Imports:
     BayesLogit,
     gtools,
     scales,
-    mvtnorm
+    mvtnorm,
+    pROC
 Suggests:
     ggplot2,
     igraph,
-    pROC,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

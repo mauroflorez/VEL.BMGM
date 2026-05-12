@@ -529,13 +529,13 @@ classification_metrics <- function(y_true, y_pred_prob, threshold = 0.5) {
 
   brier <- mean((y_pred_prob - y_true)^2)
 
-  auc_val <- NA
-  if (requireNamespace("pROC", quietly = TRUE)) {
-    auc_val <- tryCatch(
-      as.numeric(pROC::auc(pROC::roc(y_true, y_pred_prob, quiet = TRUE))),
-      error = function(e) NA
-    )
-  }
+  auc_val <- tryCatch(
+    as.numeric(pROC::auc(pROC::roc(y_true, y_pred_prob, quiet = TRUE))),
+    error = function(e) {
+      warning("AUC could not be computed: ", conditionMessage(e), call. = FALSE)
+      NA_real_
+    }
+  )
 
   c(Accuracy = accuracy, Sensitivity = sensitivity, Specificity = specificity,
     Precision = precision, F1 = f1, MCC = mcc, AUC = auc_val, Brier = brier)
